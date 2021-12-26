@@ -1,4 +1,12 @@
-<nav class="navbar navbar-expand-md bg-primary navbar-dark sticky-top">
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+    .navbar {
+        background-color: #8AAAE5;
+        font-family: 'Montserrat', sans-serif;
+    }
+</style>
+
+<nav class="navbar navbar-expand-md navbar-dark sticky-top">
     <a class="navbar-brand" href="home.php">
         <img src="./assets/image/background.png" width="30" height="30" class="d-inline-block align-top" alt="">
         Hãy chọn giá đúng
