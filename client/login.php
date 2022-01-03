@@ -1,3 +1,63 @@
+<?php
+session_start();
+// if already logged in, redirect to home page
+if (isset($_SESSION['token'])) {
+    echo "<script>window.location.href = 'home.php';</script>";
+}
+
+if (isset($_POST['login'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $validate = 1;
+
+    if (!preg_match("/^[a-zA-Z0-9]+$/", $username)) {
+        $username_error = "Username is only character and number";
+        $validate = 0;
+    }
+    if (strlen($password) < 5) {
+        $password_error = "Password must be minimum of 5 characters";
+        $validate = 0;
+    }
+
+    if ($username && $password && $validate) {
+        // create socket
+        $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+        if ($socket === false) {
+            echo "socket_create() failed: reason: " . socket_strerror(socket_last_error()) . "\n";
+        }
+        // connect to server
+        $result = socket_connect($socket, "127.0.0.1", 9999);
+        if ($result === false) {
+            echo "socket_connect() failed.\nReason: ($result) " . socket_strerror(socket_last_error($socket)) . "\n";
+        }
+        // send username, password to server
+        $msg = "1|" . $username . "|" . $password;
+
+        $ret = socket_write($socket, $msg, strlen($msg));
+        if (!$ret) die("client write fail:" . socket_strerror(socket_last_error()) . "\n");
+
+        // receive response from server
+        $response = socket_read($socket, 1024);
+        if (!$response) die("client read fail:" . socket_strerror(socket_last_error()) . "\n");
+
+        // split response from server
+        $response = explode("|", $response);
+
+        if ($response[1] == "S") {
+            $_SESSION['token'] = $response[2];
+            echo "<script>alert('Login Success');</script>";
+            echo "<script>window.location.href='home.php';</script>";
+        } else {
+            echo "<script>alert('Login fail!');</script>";
+            echo "<script>window.location.href = 'login.php';</script>";
+        }
+
+        // close socket
+        socket_close($socket);
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,65 +67,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <title>Login</title>
-    <?php
-    if (isset($_POST['login'])) {
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-        $validate = 1;
 
-        if (!preg_match("/^[a-zA-Z0-9]+$/", $username)) {
-            $username_error = "Username is only character and number";
-            $validate = 0;
-        }
-        if (strlen($password) < 5) {
-            $password_error = "Password must be minimum of 5 characters";
-            $validate = 0;
-        }
-
-        if ($username && $password && $validate) {
-
-            // create socket
-            $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-            if ($socket === false) {
-                echo "socket_create() failed: reason: " . socket_strerror(socket_last_error()) . "\n";
-            }
-            // connect to server
-            $result = socket_connect($socket, "127.0.0.1", 9999);
-            if ($result === false) {
-                echo "socket_connect() failed.\nReason: ($result) " . socket_strerror(socket_last_error($socket)) . "\n";
-            }
-            // send username, password to server
-            $msg = "1|" . $username . "|" . $password;
-
-            $ret = socket_write($socket, $msg, strlen($msg));
-            if (!$ret) die("client write fail:" . socket_strerror(socket_last_error()) . "\n");
-
-            // receive response from server
-            $response = socket_read($socket, 1024);
-            if (!$response) die("client read fail:" . socket_strerror(socket_last_error()) . "\n");
-            echo $response;
-
-            // split response from server
-            $response = explode("|", $response);
-
-            if ($response[1] == "S") {
-                echo "<script>alert('Login success!');</script>";
-                echo "<script>window.location.href = 'home.php';</script>";
-            } else {
-                echo "<script>alert('Login fail!');</script>";
-                echo "<script>window.location.href = 'login.php';</script>";
-            }
-
-            // close socket
-            socket_close($socket);
-        }
-    }
-
-    ?>
 </head>
 
 <body>
-    <?php include('navbar.php'); ?>
+    <header>
+        <?php include('navbar.php'); ?>
+    </header>
+
+
     <div class="container">
         <div class="row">
             <div class="col-lg-10 col-offset-2 mx-auto">

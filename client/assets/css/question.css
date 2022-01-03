@@ -11,8 +11,7 @@ body {
 }
 
 .container {
-    background-color:#2980B9;
-    color: #ddd;
+    color: rgb(0, 0, 0);
     border-radius: 10px;
     padding: 20px;
     font-family: 'Montserrat', sans-serif;
@@ -35,7 +34,7 @@ body {
 #options label {
     display: block;
     margin-bottom: 15px;
-    font-size: 14px;
+    font-size: 20px;
     cursor: pointer
 }
 
@@ -49,8 +48,8 @@ body {
     left: 0;
     height: 25px;
     width: 25px;
-    background-color: #555;
-    border: 1px solid #ddd;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(74, 111, 233);
     border-radius: 50%
 }
 
@@ -84,7 +83,6 @@ body {
 .btn-primary {
     background-color: #555;
     color: #ddd;
-    border: 1px solid #ddd
 }
 
 .btn-primary:hover {

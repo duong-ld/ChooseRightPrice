@@ -1,10 +1,10 @@
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
     .navbar {
         background-color: #8AAAE5;
         font-family: 'Montserrat', sans-serif;
     }
-
 </style>
 
 <nav class="navbar navbar-expand-md navbar-dark sticky-top">
@@ -18,14 +18,11 @@
     <div id="navb" class="navbar-collapse collapse hide">
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href="game1.php">Game 1</a>
+                <a class="nav-link" href="home.php">Home</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">Game 2</a>
+                <a class="nav-link" href="rank.php">Rank</a>
             </li>
-            <!-- <li class="nav-item active">
-                <a class="nav-link" href="#">Game 3</a>
-            </li> -->
         </ul>
 
         <ul class="nav navbar-nav ml-auto">

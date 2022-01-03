@@ -15,12 +15,11 @@ if (!$_SESSION['token'] || !$_SESSION['no_question']) {
     echo "<script>alert('You are not logged in!');</script>";
     echo "<script>window.location.href = 'login.php';</script>";
 }
-
 $token = intval($_SESSION['token']);
 $no_question = intval($_SESSION['no_question']);
 
 // send request to server
-$msg = "5|" . $token . "|" . $no_question;
+$msg = "5|" . $token . "|0";
 
 
 $ret = socket_write($socket, $msg, strlen($msg));
@@ -65,7 +64,9 @@ socket_close($socket);
         <div class="card border-0 shadow rounded-3 my-5" style="align-content: center;">
             <div class=" card-body">
                 <form action="answer.php" method="post">
-                    <div class="py-2 h5 p-3"><b><?php echo $response[1] ?></b></div>
+                    <div class="py-2 h5 p-3">
+                        <pre><?php echo $response[1] ?></pre>
+                    </div>
                     <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
                         <label class="options">
                             <?php echo $response[2] ?>$
