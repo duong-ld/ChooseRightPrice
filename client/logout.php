@@ -29,7 +29,7 @@ $response = explode("|", $response);
 if ($response[0] == 0) {
     unset($_SESSION['token']);
     // not auth
-    echo "<script>alert('You are not logged in!');</script>";
+    echo "<script>alert('" . $response[1] . "');</script>";
     echo "<script>window.location.href = 'login.php';</script>";
 }
 
@@ -38,6 +38,6 @@ if ($response[1] == "S") {
     echo "<script>alert('Logout Success');</script>";
     echo "<script>window.location.href='login.php';</script>";
 } else {
-    echo "<script>alert('Logout fail!');</script>";
+    echo "<script>alert('" . $response[2] . "');</script>";
     echo "<script>window.location.href = 'login.php';</script>";
 }

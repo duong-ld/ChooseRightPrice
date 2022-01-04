@@ -48,7 +48,7 @@ if (isset($_POST['login'])) {
             echo "<script>alert('Login Success');</script>";
             echo "<script>window.location.href='home.php';</script>";
         } else {
-            echo "<script>alert('Login fail!');</script>";
+            echo "<script>alert('" . strval($response[2]) . "');</script>";
             echo "<script>window.location.href = 'login.php';</script>";
         }
 

@@ -18,9 +18,10 @@ if (isset($_POST['answer'])) {
     // send answer to server
     if ($_SESSION['token']) {
         $token = intval($_SESSION['token']);
-        $msg = "6|" . $token . "|" . $answer;
+        $no_question = intval($_SESSION['no_question']);
+        $msg = "6|" . $token . "|" . $no_question . "|" . $answer;
     } else {
-        $msg = "6|0|" . $answer;
+        $msg = "6|0|" . $no_question . "|" . $answer;
     }
 
     $ret = socket_write($socket, $msg, strlen($msg));
@@ -34,7 +35,8 @@ if (isset($_POST['answer'])) {
     $response = explode("|", $response);
 
     if ($response[0] == 0) {
-        echo "<script>alert('You are not logged in!');</script>";
+        unset($_SESSION['token']);
+        echo "<script>alert('" . strval($response[1]) . "');</script>";
         echo "<script>window.location.href = 'login.php';</script>";
     }
 } else {
@@ -98,7 +100,13 @@ if (isset($_POST['answer'])) {
     if ($_SESSION['no_question'] <= 9) {
         echo "<a href='question.php' class='btn btn-primary'>Next Question</a>";
     } else if ($_SESSION['no_question'] == 10) {
-        echo "<a href='s_question.php' class='btn btn-primary'>Special Question</a>";
+        if ($_SESSION['no_correct'] < 5) {
+            echo "<script>alert('You are failed!');</script>";
+            echo "<script>window.location.href = 'home.php';</script>";
+            $_SESSION['no_correct'] = 0;
+            $_SESSION['no_question'] = 1;
+        }
+        echo "<a href='game2.php' class='btn btn-primary'>X game</a>";
     } else {
         echo "<a href='result.php' class='btn btn-primary'>Result</a>";
     }
@@ -107,8 +115,6 @@ if (isset($_POST['answer'])) {
     echo "</div>";
     echo "</div>";
     echo "</div>";
-
-
     ?>
 
 </body>
