@@ -10,7 +10,7 @@
 <nav class="navbar navbar-expand-md navbar-dark sticky-top">
     <a class="navbar-brand" href="home.php">
         <img src="./assets/image/background.png" width="30" height="30" class="d-inline-block align-top" alt="">
-        Hãy chọn giá đúng
+        The price is right
     </a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb" aria-expanded="true">
         <span class="navbar-toggler-icon"></span>

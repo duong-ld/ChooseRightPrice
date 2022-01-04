@@ -59,11 +59,11 @@ $_SESSION['no_correct'] = 0;
     <div class="container d-flex justify-content-center">
         <div class="card w-50 border-0 shadow rounded-3 my-5">
             <div class=" card-body">
-                <h3>Chào mừng bạn đến với game đầu tiên</h3>
+                <h3>Welcome to the first game</h3>
                 <hr>
-                <p style="font-size: large;">Bạn cần trả lời 9 câu hỏi lớn hơn hay nhỏ hơn. Cố gắng trả lời càng nhiều các tốt nhé!</p>
+                <p style="font-size: large;">You need to answer 9 bigger or smaller questions. Try to answer as many as possible!!</p>
                 <div class="d-flex justify-content-center">
-                    <a href="question.php" class="btn btn-primary">Bắt đầu</a>
+                    <a href="question.php" class="btn btn-primary">Start</a>
                 </div>
             </div>
         </div>

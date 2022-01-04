@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <title>Question</title>
+    <title>Game 3</title>
 </head>
 
 <body class="bg-white">
@@ -18,12 +18,12 @@
     <div class="container d-flex justify-content-center">
         <div class="card w-50 border-0 shadow rounded-3 my-5">
             <div class=" card-body">
-                <h3>Chào mừng bạn đến với game thứ 3</h3>
+                <h3>Welcome to the 3rd game</h3>
                 <hr>
-                <p style="font-size: large;">Trả lời tự luận câu hỏi về chuỗi sản phẩm. Trả lời đúng sẽ được toàn bộ số tiền của chuỗi sản phẩm</p>
+                <p style="font-size: large;">Answer question about product chains. Correct answer will get the full amount of the product chain</p>
 
                 <div class="d-flex justify-content-center">
-                    <a href="s_question.php" class="btn btn-primary">Bắt đầu</a>
+                    <a href="s_question.php" class="btn btn-primary">Start</a>
                 </div>
             </div>
         </div>

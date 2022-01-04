@@ -10,6 +10,7 @@ $result = socket_connect($socket, "127.0.0.1", 9999);
 if ($result === false) {
     echo "socket_connect() failed.\nReason: ($result) " . socket_strerror(socket_last_error($socket)) . "\n";
 }
+
 if (!$_SESSION['token'] || !$_SESSION['no_question']) {
     // not logged in, redirect to login page
     echo "<script>alert('You are not logged in!');</script>";

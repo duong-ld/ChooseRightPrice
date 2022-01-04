@@ -13,7 +13,7 @@ session_start();
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./assets/css/game1.css">
-    <title>Game 1</title>
+    <title>X game</title>
 </head>
 
 
@@ -22,7 +22,7 @@ session_start();
         <?php include('user_navbar.php'); ?>
     </header>
     <div class="title">
-        <h1>Chữ X bí ẩn</h1>
+        <h1>Mysterious X</h1>
     </div>
     <br>
     <div class="container justify-content-center d-flex">
@@ -40,7 +40,7 @@ session_start();
     </div>
 
     <div id="btn" class="pt-5">
-        <?php $numClickable = 2 ?>
+        <?php $numClickable = round($_SESSION['no_correct'] / 3) ?>
         <button class="btn btn-warning btn-lg mr-5" onclick="play(<?php echo $numClickable ?>)">Play</button>
         <button class="btn btn-success btn-lg" onclick="check()">Check</button>
     </div>

@@ -51,7 +51,7 @@ $_SESSION['no_correct'] = intval($response[2]);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <title>Question</title>
+    <title>Continue</title>
 </head>
 
 <body class="bg-white">
@@ -62,14 +62,14 @@ $_SESSION['no_correct'] = intval($response[2]);
     <div class="container d-flex justify-content-center">
         <div class="card w-50 border-0 shadow rounded-3 my-5">
             <div class=" card-body">
-                <h3>Chào mừng bạn đến với game đầu tiên</h3>
+                <h3>Welcome to the first game</h3>
                 <hr>
-                <p style="font-size: large;">Bạn cần trả lời 9 câu hỏi lớn hơn hay nhỏ hơn. Cố gắng trả lời càng nhiều các tốt nhé!</p>
+                <p style="font-size: large;">You need to answer 9 bigger or smaller questions. Try to answer as many as possible!!</p>
                 <hr>
-                <p>Bạn đang ở câu thứ <?php echo $_SESSION['no_question'] ?></p>
-                <p>Bạn đã trả lời đúng <?php echo $_SESSION['no_correct'] ?> câu</p>
+                <p>You are at the question <?php echo $_SESSION['no_question'] ?></p>
+                <p>You answered <?php echo $_SESSION['no_correct'] ?> out of 9 questions correctly</p>
                 <div class="d-flex justify-content-center">
-                    <a href="question.php" class="btn btn-primary">Tiếp tục</a>
+                    <a href="question.php" class="btn btn-primary">Continue</a>
                 </div>
             </div>
         </div>

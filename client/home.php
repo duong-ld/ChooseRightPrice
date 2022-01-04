@@ -16,15 +16,15 @@
         <?php include('user_navbar.php'); ?>
     </header>
 
-    <h2 class="text-center m-5">Chào mừng bạn đến với hãy chọn giá đúng</h2>
+    <h2 class="text-center m-5">Welcome to the price is right</h2>
 
     <div class="container p-5">
         <div class="col-lg-10 col-offset-2 mx-auto">
             <div class="card shadow rounded-3">
                 <div class="card-body p-4 p-sm-5">
-                    <a href="new.php" class="btn btn-primary btn-lg btn-block">Bắt Đầu</a>
-                    <a href="continue.php" class="btn btn-primary btn-lg btn-block">Chơi tiếp</a>
-                    <a href="rank.php" class="btn btn-primary btn-lg btn-block">Bảng xếp hạng</a>
+                    <a href="new.php" class="btn btn-primary btn-lg btn-block">Start</a>
+                    <a href="continue.php" class="btn btn-primary btn-lg btn-block">Continue</a>
+                    <a href="rank.php" class="btn btn-primary btn-lg btn-block">Rank</a>
                 </div>
             </div>
         </div>
