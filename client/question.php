@@ -1,5 +1,12 @@
 <?php
 session_start();
+
+if (!$_SESSION['token'] || !$_SESSION['no_question'] || !$_SESSION['user-id']) {
+    // not logged in, redirect to login page
+    echo "<script>alert('You are not logged in!');</script>";
+    echo "<script>window.location.href = 'login.php';</script>";
+}
+
 // create socket
 $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 if ($socket === false) {
@@ -11,17 +18,12 @@ if ($result === false) {
     echo "socket_connect() failed.\nReason: ($result) " . socket_strerror(socket_last_error($socket)) . "\n";
 }
 
-if (!$_SESSION['token'] || !$_SESSION['no_question']) {
-    // not logged in, redirect to login page
-    echo "<script>alert('You are not logged in!');</script>";
-    echo "<script>window.location.href = 'login.php';</script>";
-}
-
 $token = intval($_SESSION['token']);
+$user_id = intval($_SESSION['user-id']);
 $no_question = intval($_SESSION['no_question']);
 
 // send request to server
-$msg = "5|" . $token . "|" . $no_question;
+$msg = "5|" . $token . "|" . $user_id . "|" . $no_question;
 
 
 $ret = socket_write($socket, $msg, strlen($msg));

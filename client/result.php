@@ -1,9 +1,11 @@
 <?php
 session_start();
+
 if (!$_SESSION['token'] || !$_SESSION['user-id']) {
-    echo "<script>alert('You are not logged in!');</script>";
+    echo "<script>alert('You are not login!');</script>";
     echo "<script>window.location.href = 'login.php';</script>";
 }
+
 // create socket
 $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 if ($socket === false) {
@@ -15,34 +17,26 @@ if ($result === false) {
     echo "socket_connect() failed.\nReason: ($result) " . socket_strerror(socket_last_error($socket)) . "\n";
 }
 
-// send message to reset question on server
-$token = intval($_SESSION['token']);
-$user_id = intval($_SESSION['user-id']);
-$msg = "4|" . $token . "|" . $user_id;
+$token = $_SESSION['token'];
+$user_id = $_SESSION['user-id'];
+$msg = "8|" . $token . "|" . $user_id;
+
 $ret = socket_write($socket, $msg, strlen($msg));
 if (!$ret) die("client write fail:" . socket_strerror(socket_last_error()) . "\n");
 
-// receive response from server
 $response = socket_read($socket, 1024);
 if (!$response) die("client read fail:" . socket_strerror(socket_last_error()) . "\n");
 
-// close socket
-socket_close($socket);
-
 $response = explode("|", $response);
 
-if ($response[0] == '0') {
+if ($response[0] == 0) {
     unset($_SESSION['token']);
     unset($_SESSION['user-id']);
     echo "<script>alert('" . $response[1] . "');</script>";
     echo "<script>window.location.href = 'login.php';</script>";
 }
 
-$_SESSION['no_question'] = 1;
-$_SESSION['no_correct'] = 0;
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,27 +46,36 @@ $_SESSION['no_correct'] = 0;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <title>Question</title>
+    <title>Document</title>
+
 </head>
 
-<body class="bg-white">
+<body>
     <header>
         <?php include('user_navbar.php') ?>
     </header>
 
-    <div class="container d-flex justify-content-center">
-        <div class="card w-50 border-0 shadow rounded-3 my-5">
-            <div class=" card-body">
-                <h3>Welcome to the first game</h3>
-                <hr>
-                <p style="font-size: large;">You need to answer 9 bigger or smaller questions. Try to answer as many as possible!!</p>
-                <div class="d-flex justify-content-center">
-                    <a href="question.php" class="btn btn-primary">Start</a>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h3>Result</h3>
+            </div>
+            <div class="card-body">
+                <div class="col-md-8">
+                    <h4>Game 1: <?php echo $response[1]; ?>/9</h4>
+                    <h4>Game 2: <?php echo $response[2]; ?></h4>
+                    <h4>Game 3: <?php echo $response[3]; ?>$</h4>
+                    <hr>
+                    <h4>Overall: + <?php echo $response[3]; ?>$</h4>
+                </div>
+                <div class="d-flex align-items-center pt-3">
+                    <div class="ml-auto">
+                        <a href="new.php" class="btn btn-primary">Play Again</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 
 </body>
 

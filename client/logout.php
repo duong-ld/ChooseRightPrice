@@ -1,5 +1,10 @@
 <?php
 session_start();
+if (!$_SESSION['token'] || !$_SESSION['user-id']) {
+    echo "<script>alert('You are not logged in!');</script>";
+    echo "<script>window.location.href = 'login.php';</script>";
+}
+
 // create socket
 $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 if ($socket === false) {
@@ -11,11 +16,9 @@ if ($result === false) {
     echo "socket_connect() failed.\nReason: ($result) " . socket_strerror(socket_last_error($socket)) . "\n";
 }
 // send request, token to server
-if (isset($_SESSION['token'])) {
-    $msg = "3|" . $_SESSION['token'];
-} else {
-    $msg = "3|0";
-}
+$token = $_SESSION['token'];
+$user_id = $_SESSION['user-id'];
+$msg = "3|" . $token . "|" . $user_id;
 
 $ret = socket_write($socket, $msg, strlen($msg));
 if (!$ret) die("client write fail:" . socket_strerror(socket_last_error()) . "\n");
@@ -28,13 +31,14 @@ $response = explode("|", $response);
 
 if ($response[0] == 0) {
     unset($_SESSION['token']);
-    // not auth
+    unset($_SESSION['user-id']);
     echo "<script>alert('" . $response[1] . "');</script>";
     echo "<script>window.location.href = 'login.php';</script>";
 }
 
 if ($response[1] == "S") {
     unset($_SESSION['token']);
+    unset($_SESSION['user-id']);
     echo "<script>alert('Logout Success');</script>";
     echo "<script>window.location.href='login.php';</script>";
 } else {

@@ -1,5 +1,11 @@
 <?php
 session_start();
+
+if (!$_SESSION['token'] || !$_SESSION['user-id']) {
+    echo "<script>alert('You are not logged in!');</script>";
+    echo "<script>window.location.href = 'login.php';</script>";
+}
+
 if (isset($_POST['answer'])) {
     $answer = floatval($_POST['answer']);
 
@@ -14,15 +20,11 @@ if (isset($_POST['answer'])) {
         echo "socket_connect() failed.\nReason: ($result) " . socket_strerror(socket_last_error($socket)) . "\n";
     }
 
-
     // send answer to server
-    if ($_SESSION['token']) {
-        $token = intval($_SESSION['token']);
-        $no_question = intval($_SESSION['no_question']);
-        $msg = "6|" . $token . "|" . $no_question . "|" . $answer;
-    } else {
-        $msg = "6|0|" . $no_question . "|" . $answer;
-    }
+    $token = intval($_SESSION['token']);
+    $user_id = intval($_SESSION['user-id']);
+    $no_question = intval($_SESSION['no_question']);
+    $msg = "6|" . $token . "|" . $user_id . "|" . $no_question . "|" . $answer;
 
     $ret = socket_write($socket, $msg, strlen($msg));
     if (!$ret) die("client write fail:" . socket_strerror(socket_last_error()) . "\n");
@@ -36,6 +38,7 @@ if (isset($_POST['answer'])) {
 
     if ($response[0] == 0) {
         unset($_SESSION['token']);
+        unset($_SESSION['user-id']);
         echo "<script>alert('" . strval($response[1]) . "');</script>";
         echo "<script>window.location.href = 'login.php';</script>";
     }
@@ -85,18 +88,9 @@ if (isset($_POST['answer'])) {
         echo "<p class='card-text'>";
         echo "Your answer is wrong!";
         echo "</p>";
-    } else {
-        // render timeout
-        echo "<div class='container p-5'>";
-        echo "<div class='row'>";
-        echo "<div class='col-md-12'>";
-        echo "<div class='card border-0 shadow rounded-3 my-5' style='background-color: #ff5858;'>";
-        echo "<div class='card-body'>";
-        echo "<h5 class='card-title'>Time Out</h5>";
-        echo "<p class='card-text'>";
-        echo "Your answer is timeout!";
-        echo "</p>";
     }
+    // end if
+
     if ($_SESSION['no_question'] <= 9) {
         echo "<a href='question.php' class='btn btn-primary'>Next Question</a>";
     } else if ($_SESSION['no_question'] == 10) {

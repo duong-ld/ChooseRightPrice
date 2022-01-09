@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "api.h": "c",
+        "string.h": "c",
+        "error.h": "c",
+        "account.h": "c",
+        "stdlib.h": "c",
+        "constain.h": "c"
+    }
+}

@@ -1,4 +1,11 @@
-<?php session_start(); ?>
+<?php
+session_start();
+
+// if already logged in, redirect to home page
+if (isset($_SESSION['token'])) {
+    echo "<script>window.location.href = 'home.php';</script>";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,12 +19,6 @@
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/home.css">
     <title>Home Page</title>
-    <?php
-    // if already logged in, redirect to home page
-    if (isset($_SESSION['token'])) {
-        echo "<script>window.location.href = 'home.php';</script>";
-    }
-    ?>
 
     <style>
         html,

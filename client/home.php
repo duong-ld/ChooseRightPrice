@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if (!$_SESSION['token']) {
+    echo "<script>alert('You are not logged in!');</script>";
+    echo "<script>window.location.href = 'login.php';</script>";
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 

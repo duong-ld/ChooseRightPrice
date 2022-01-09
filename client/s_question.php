@@ -1,5 +1,10 @@
 <?php
 session_start();
+if (!$_SESSION['token'] || !$_SESSION['no_question'] || !$_SESSION['user-id']) {
+    // not logged in, redirect to login page
+    echo "<script>alert('You are not logged in!');</script>";
+    echo "<script>window.location.href = 'login.php';</script>";
+}
 // create socket
 $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 if ($socket === false) {
@@ -10,16 +15,14 @@ $result = socket_connect($socket, "127.0.0.1", 9999);
 if ($result === false) {
     echo "socket_connect() failed.\nReason: ($result) " . socket_strerror(socket_last_error($socket)) . "\n";
 }
-if (!$_SESSION['token'] || !$_SESSION['no_question']) {
-    // not logged in, redirect to login page
-    echo "<script>alert('You are not logged in!');</script>";
-    echo "<script>window.location.href = 'login.php';</script>";
-}
+
 $token = intval($_SESSION['token']);
+$user_id = intval($_SESSION['user-id']);
 $no_question = intval($_SESSION['no_question']);
 
 // send request to server
-$msg = "5|" . $token . "|0";
+
+$msg = "5|" . $token . "|" . $user_id . "|" . $no_question;
 
 
 $ret = socket_write($socket, $msg, strlen($msg));
@@ -67,17 +70,8 @@ socket_close($socket);
                     <div class="py-2 h5 p-3">
                         <pre><?php echo $response[1] ?></pre>
                     </div>
-                    <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
-                        <label class="options">
-                            <?php echo $response[2] ?>$
-                            <input type="radio" name="answer" value=<?php echo $response[2] ?>>
-                            <span class="checkmark"></span>
-                        </label>
-                        <label class="options">
-                            <?php echo $response[3] ?>$
-                            <input type="radio" name="answer" value=<?php echo $response[3] ?>>
-                            <span class="checkmark"></span>
-                        </label>
+                    <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3">
+                        <input type="text" name="answer" class="form-control" placeholder="Answer">
                     </div>
                     <div class="d-flex align-items-center pt-3">
                         <div class="ml-auto">

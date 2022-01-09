@@ -55,7 +55,6 @@ const check = () => {
     $('#successModal').modal('show');
   } else {
     $('#failModal').modal('show');
-    // alert("No")
   }
 
   Array.from(elements("#game div"))[answer].classList.add("clicked");

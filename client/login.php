@@ -45,6 +45,7 @@ if (isset($_POST['login'])) {
 
         if ($response[1] == "S") {
             $_SESSION['token'] = $response[2];
+            $_SESSION['user-id'] = $response[3];
             echo "<script>alert('Login Success');</script>";
             echo "<script>window.location.href='home.php';</script>";
         } else {

@@ -1,5 +1,11 @@
 <?php
 session_start();
+
+if (!$_SESSION['token'] || !$_SESSION['user-id']) {
+    echo "<script>alert('You are not logged in!');</script>";
+    echo "<script>window.location.href = 'login.php';</script>";
+}
+
 // create socket
 $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 if ($socket === false) {
@@ -11,11 +17,9 @@ if ($result === false) {
     echo "socket_connect() failed.\nReason: ($result) " . socket_strerror(socket_last_error($socket)) . "\n";
 }
 // send request, token to server
-if (isset($_SESSION['token'])) {
-    $msg = "7|" . $_SESSION['token'];
-} else {
-    $msg = "7|0";
-}
+$token = $_SESSION['token'];
+$user_id = $_SESSION['user-id'];
+$msg = "7|" . $token . "|" . $user_id;
 
 $ret = socket_write($socket, $msg, strlen($msg));
 if (!$ret) die("client write fail:" . socket_strerror(socket_last_error()) . "\n");
