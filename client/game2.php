@@ -1,4 +1,5 @@
 <?php
+include('constant.php');
 session_start();
 if (!$_SESSION['token'] || !$_SESSION['user-id']) {
     echo "<script>alert('You are not logged in!');</script>";
@@ -21,7 +22,7 @@ $user_id = intval($_SESSION['user-id']);
 $no_question = intval($_SESSION['no_question']);
 
 // send request to server
-$msg = "5|" . $token . "|" . $user_id . "|" . $no_question;
+$msg = QUESTION . "|" . $token . "|" . $user_id . "|" . $no_question;
 
 $ret = socket_write($socket, $msg, strlen($msg));
 if (!$ret) die("client write fail:" . socket_strerror(socket_last_error()) . "\n");

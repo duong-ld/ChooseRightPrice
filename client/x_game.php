@@ -1,4 +1,5 @@
 <?php
+include('constant.php');
 session_start();
 if (!$_SESSION['token'] || !$_SESSION['user-id']) {
     echo "<script>alert('You are not logged in!');</script>";
@@ -28,7 +29,7 @@ if ($result === false) {
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./assets/css/game1.css">
+    <link rel="stylesheet" href="./assets/css/x_game.css">
     <title>X game</title>
 </head>
 
@@ -94,7 +95,7 @@ if ($result === false) {
         </div>
     </div>
 
-    <script type="text/javascript" src="./assets/js/game1.js"></script>
+    <script type="text/javascript" src="./assets/js/x_game.js"></script>
     <?php
     echo '<script type="text/javascript">
             play(' . round($_SESSION['no_correct'] / 3) . ');
@@ -108,7 +109,7 @@ if ($result === false) {
     $user_id = intval($_SESSION['user-id']);
     $no_question = intval($_SESSION['no_question']);
     $answer = 1;
-    $message = "6|" . $token . "|" . $user_id . "|" . $no_question . "|" . $answer;
+    $message = ANSWER . "|" . $token . "|" . $user_id . "|" . $no_question . "|" . $answer;
     socket_write($socket, $message, strlen($message));
     $_SESSION['no_question'] = intval($_SESSION['no_question']) + 1;
     ?>

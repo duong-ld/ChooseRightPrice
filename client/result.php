@@ -1,4 +1,5 @@
 <?php
+include('constant.php');
 session_start();
 
 if (!$_SESSION['token'] || !$_SESSION['user-id']) {
@@ -19,7 +20,7 @@ if ($result === false) {
 
 $token = $_SESSION['token'];
 $user_id = $_SESSION['user-id'];
-$msg = "8|" . $token . "|" . $user_id;
+$msg = RESULT . "|" . $token . "|" . $user_id;
 
 $ret = socket_write($socket, $msg, strlen($msg));
 if (!$ret) die("client write fail:" . socket_strerror(socket_last_error()) . "\n");

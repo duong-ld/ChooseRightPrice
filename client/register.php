@@ -1,4 +1,5 @@
 <?php
+include('constant.php');
 session_start();
 
 // if already logged in, redirect to home page
@@ -42,7 +43,7 @@ if (isset($_POST['signup'])) {
             echo "socket_connect() failed.\nReason: ($result) " . socket_strerror(socket_last_error($socket)) . "\n";
         }
         // send username, password to server
-        $msg = "2|" . $name . "|" . $username . "|" . $password;
+        $msg = REGISTER . "|" . $name . "|" . $username . "|" . $password;
 
         $ret = socket_write($socket, $msg, strlen($msg));
         if (!$ret) die("client write fail:" . socket_strerror(socket_last_error()) . "\n");
@@ -57,6 +58,7 @@ if (isset($_POST['signup'])) {
         if ($response[1] == "S") {
             // set session token
             $_SESSION['token'] = $response[2];
+            $_SESSION['user-id'] = $response[3];
             // redirect to home page
             echo "<script>alert('Register success!');</script>";
             echo "<script>window.location.href = 'home.php';</script>";

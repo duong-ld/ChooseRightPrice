@@ -1,4 +1,5 @@
 <?php
+include('constant.php');
 session_start();
 // if already logged in, redirect to home page
 if (isset($_SESSION['token'])) {
@@ -31,7 +32,7 @@ if (isset($_POST['login'])) {
             echo "socket_connect() failed.\nReason: ($result) " . socket_strerror(socket_last_error($socket)) . "\n";
         }
         // send username, password to server
-        $msg = "1|" . $username . "|" . $password;
+        $msg = LOGIN . "|" . $username . "|" . $password;
 
         $ret = socket_write($socket, $msg, strlen($msg));
         if (!$ret) die("client write fail:" . socket_strerror(socket_last_error()) . "\n");

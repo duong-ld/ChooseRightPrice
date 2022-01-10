@@ -1,4 +1,5 @@
 <?php
+include('constant.php');
 session_start();
 
 if (!$_SESSION['token'] || !$_SESSION['user-id']) {
@@ -19,7 +20,7 @@ if ($result === false) {
 // send request, token to server
 $token = $_SESSION['token'];
 $user_id = $_SESSION['user-id'];
-$msg = "7|" . $token . "|" . $user_id;
+$msg = RANK . "|" . $token . "|" . $user_id;
 
 $ret = socket_write($socket, $msg, strlen($msg));
 if (!$ret) die("client write fail:" . socket_strerror(socket_last_error()) . "\n");
