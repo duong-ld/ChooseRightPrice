@@ -1,0 +1,20 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    pointer-events: auto;
+}
+
+/* Make the image fully responsive */
+.carousel-inner img {
+    width: 100%;
+    min-height: 100vh;
+}

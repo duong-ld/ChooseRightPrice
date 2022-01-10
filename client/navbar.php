@@ -1,11 +1,8 @@
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+<?php
+session_start();
+?>
 
-    .navbar {
-        background-color: #8AAAE5;
-        font-family: 'Montserrat', sans-serif;
-    }
-</style>
+<link rel="stylesheet" href="./assets/css/navbar.css">
 
 <nav class="navbar navbar-expand-md navbar-dark sticky-top">
     <a class="navbar-brand" href="home.php">
@@ -20,15 +17,30 @@
             <li class="nav-item active">
                 <a class="nav-link" href="home.php">Home</a>
             </li>
+            <?php
+            if ($_SESSION['token']) {
+                echo '<li class="nav-item active">
+                    <a class="nav-link" href="rank.php">Rank</a>
+                  </li>';
+            }
+            ?>
         </ul>
 
         <ul class="nav navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="register.php"><span class="fas fa-user"></span>Register</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="login.php"><span class="fas fa-sign-in-alt"></span> Login</a>
-            </li>
+            <?php
+            if ($_SESSION['token']) {
+                echo '<li class="nav-item">
+                        <a class="nav-link" href="logout.php"><span class="fas fa-sign-out-alt"></span> Logout</a>
+                      </li>';
+            } else {
+                echo '<li class="nav-item">
+                        <a class="nav-link" href="register.php"><span class="fas fa-user"></span>Register</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="login.php"><span class="fas fa-sign-in-alt"></span> Login</a>
+                      </li>';
+            }
+            ?>
         </ul>
     </div>
 </nav>

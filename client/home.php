@@ -22,7 +22,7 @@ if (!$_SESSION['token']) {
 <body>
 
     <header>
-        <?php include('user_navbar.php'); ?>
+        <?php include('navbar.php'); ?>
     </header>
 
     <h2 class="text-center m-5">Welcome to the price is right</h2>

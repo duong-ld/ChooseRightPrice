@@ -7,16 +7,7 @@ if (!$_SESSION['token'] || !$_SESSION['user-id']) {
     echo "<script>window.location.href = 'login.php';</script>";
 }
 
-// create socket
-$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-if ($socket === false) {
-    echo "socket_create() failed: reason: " . socket_strerror(socket_last_error()) . "\n";
-}
-// connect to server
-$result = socket_connect($socket, "127.0.0.1", 9999);
-if ($result === false) {
-    echo "socket_connect() failed.\nReason: ($result) " . socket_strerror(socket_last_error($socket)) . "\n";
-}
+require('socket_config.php');
 
 $token = $_SESSION['token'];
 $user_id = $_SESSION['user-id'];
@@ -47,13 +38,13 @@ if ($response[0] == 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <title>Document</title>
+    <title>Result</title>
 
 </head>
 
 <body>
     <header>
-        <?php include('user_navbar.php') ?>
+        <?php include('navbar.php') ?>
     </header>
 
     <div class="container mt-5">

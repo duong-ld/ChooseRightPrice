@@ -6,6 +6,11 @@ if (!$_SESSION['token'] || !$_SESSION['user-id']) {
     echo "<script>window.location.href = 'login.php';</script>";
 }
 
+if ($_SESSION['no_question'] < 11) {
+    echo "<script>alert('Wrong user data!');</script>";
+    echo "<script>window.location.href = 'login.php';</script>";
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +26,7 @@ if (!$_SESSION['token'] || !$_SESSION['user-id']) {
 
 <body class="bg-white">
     <header>
-        <?php include('user_navbar.php') ?>
+        <?php include('navbar.php') ?>
     </header>
 
     <div class="container d-flex justify-content-center">

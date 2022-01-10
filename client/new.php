@@ -1,20 +1,13 @@
 <?php
 include('constant.php');
 session_start();
+
 if (!$_SESSION['token'] || !$_SESSION['user-id']) {
     echo "<script>alert('You are not logged in!');</script>";
     echo "<script>window.location.href = 'login.php';</script>";
 }
-// create socket
-$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-if ($socket === false) {
-    echo "socket_create() failed: reason: " . socket_strerror(socket_last_error()) . "\n";
-}
-// connect to server
-$result = socket_connect($socket, "127.0.0.1", 9999);
-if ($result === false) {
-    echo "socket_connect() failed.\nReason: ($result) " . socket_strerror(socket_last_error($socket)) . "\n";
-}
+
+require('socket_config.php');
 
 // send message to reset question on server
 $token = intval($_SESSION['token']);
@@ -58,7 +51,7 @@ $_SESSION['no_correct'] = 0;
 
 <body class="bg-white">
     <header>
-        <?php include('user_navbar.php') ?>
+        <?php include('navbar.php') ?>
     </header>
 
     <div class="container d-flex justify-content-center">

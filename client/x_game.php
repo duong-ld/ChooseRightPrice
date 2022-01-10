@@ -6,16 +6,12 @@ if (!$_SESSION['token'] || !$_SESSION['user-id']) {
     echo "<script>window.location.href = 'login.php';</script>";
 }
 
-// create socket
-$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-if ($socket === false) {
-    echo "socket_create() failed: reason: " . socket_strerror(socket_last_error()) . "\n";
+if ($_SESSION['no_question'] != 10) {
+    echo "<script>alert('Wrong user data!');</script>";
+    echo "<script>window.location.href = 'login.php';</script>";
 }
-// connect to server
-$result = socket_connect($socket, "127.0.0.1", 9999);
-if ($result === false) {
-    echo "socket_connect() failed.\nReason: ($result) " . socket_strerror(socket_last_error($socket)) . "\n";
-}
+
+require('socket_config.php');
 
 ?>
 <!DOCTYPE html>
@@ -36,7 +32,7 @@ if ($result === false) {
 
 <body>
     <header>
-        <?php include('user_navbar.php'); ?>
+        <?php include('navbar.php'); ?>
     </header>
     <div class="title">
         <h1>Mysterious X</h1>
@@ -73,7 +69,10 @@ if ($result === false) {
                     <p>You can go to the special game !!!</p>
                 </div>
                 <div class="modal-content">
-                    <a class="btn continue" href="game3.php">CONTINUE</a>
+                    <form action="xGame_submit.php" method="post">
+                        <button type="submit" class="btn continue" value=1 name="answer">CONTINUE</button>
+                        <!-- <a class="btn continue" href="game3.php">CONTINUE</a> -->
+                    </form>
                 </div>
             </div>
         </div>
@@ -89,7 +88,10 @@ if ($result === false) {
                     <p>Better luck next time !!!</p>
                 </div>
                 <div class="modal-content">
-                    <a class="btn btn-primary" href="result.php">Result</a>
+                    <form action="xGame_submit.php" method="post">
+                        <button type="submit" class="btn btn-primary" value=0 name="answer">RESULT</button>
+                    </form>
+                    <!-- <a class="btn btn-primary" href="result.php">Result</a> -->
                 </div>
             </div>
         </div>
@@ -105,13 +107,13 @@ if ($result === false) {
     <?php
     // send result to server
     // send pass minigame message to server
-    $token = intval($_SESSION['token']);
-    $user_id = intval($_SESSION['user-id']);
-    $no_question = intval($_SESSION['no_question']);
-    $answer = 1;
-    $message = ANSWER . "|" . $token . "|" . $user_id . "|" . $no_question . "|" . $answer;
-    socket_write($socket, $message, strlen($message));
-    $_SESSION['no_question'] = intval($_SESSION['no_question']) + 1;
+    // $token = intval($_SESSION['token']);
+    // $user_id = intval($_SESSION['user-id']);
+    // $no_question = intval($_SESSION['no_question']);
+    // $answer = 1;
+    // $message = ANSWER . "|" . $token . "|" . $user_id . "|" . $no_question . "|" . $answer;
+    // socket_write($socket, $message, strlen($message));
+    // $_SESSION['no_question'] = intval($_SESSION['no_question']) + 1;
     ?>
 </body>
 

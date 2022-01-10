@@ -6,25 +6,20 @@ if (!$_SESSION['token'] || !$_SESSION['no_question'] || !$_SESSION['user-id']) {
     echo "<script>alert('You are not logged in!');</script>";
     echo "<script>window.location.href = 'login.php';</script>";
 }
-// create socket
-$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-if ($socket === false) {
-    echo "socket_create() failed: reason: " . socket_strerror(socket_last_error()) . "\n";
+
+if ($_SESSION['no_question'] != 11) {
+    echo "<script>alert('Wrong user data!');</script>";
+    echo "<script>window.location.href = 'login.php';</script>";
 }
-// connect to server
-$result = socket_connect($socket, "127.0.0.1", 9999);
-if ($result === false) {
-    echo "socket_connect() failed.\nReason: ($result) " . socket_strerror(socket_last_error($socket)) . "\n";
-}
+
+require('socket_config.php');
 
 $token = intval($_SESSION['token']);
 $user_id = intval($_SESSION['user-id']);
 $no_question = intval($_SESSION['no_question']);
 
 // send request to server
-
 $msg = QUESTION . "|" . $token . "|" . $user_id . "|" . $no_question;
-
 
 $ret = socket_write($socket, $msg, strlen($msg));
 if (!$ret) die("client write fail:" . socket_strerror(socket_last_error()) . "\n");
@@ -61,7 +56,7 @@ socket_close($socket);
 
 <body class="bg-white">
     <header>
-        <?php include('user_navbar.php') ?>
+        <?php include('navbar.php') ?>
     </header>
 
     <div class="container">

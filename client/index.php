@@ -17,31 +17,8 @@ if (isset($_SESSION['token'])) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets/css/home.css">
+    <link rel="stylesheet" href="./assets/css/index.css">
     <title>Home Page</title>
-
-    <style>
-        html,
-        body {
-            height: 100%;
-            margin: 0;
-            overflow: hidden;
-        }
-
-        .btn {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            z-index: 1;
-            pointer-events: auto;
-        }
-
-        /* Make the image fully responsive */
-        .carousel-inner img {
-            width: 100%;
-            min-height: 100vh;
-        }
-    </style>
 
 </head>
 

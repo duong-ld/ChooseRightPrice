@@ -6,16 +6,8 @@ if (!$_SESSION['token'] || !$_SESSION['user-id']) {
     echo "<script>window.location.href = 'login.php';</script>";
 }
 
-// create socket
-$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-if ($socket === false) {
-    echo "socket_create() failed: reason: " . socket_strerror(socket_last_error()) . "\n";
-}
-// connect to server
-$result = socket_connect($socket, "127.0.0.1", 9999);
-if ($result === false) {
-    echo "socket_connect() failed.\nReason: ($result) " . socket_strerror(socket_last_error($socket)) . "\n";
-}
+require('socket_config.php');
+
 // send request, token to server
 $token = $_SESSION['token'];
 $user_id = $_SESSION['user-id'];
