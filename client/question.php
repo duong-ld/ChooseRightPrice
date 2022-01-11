@@ -21,13 +21,13 @@ $ret = socket_write($socket, $msg, strlen($msg));
 if (!$ret) die("client write fail:" . socket_strerror(socket_last_error()) . "\n");
 
 // receive response from server
-$response = socket_read($socket, 1024);
+$response = socket_read($socket, STRING_LENGTH);
 if (!$response) die("client read fail:" . socket_strerror(socket_last_error()) . "\n");
 
 // split response from server
 $response = explode("|", $response);
 
-if ($response[0] == 0) {
+if ($response[0] == ERROR) {
     unset($_SESSION['token']);
     echo "<script>alert('You are not logged in!');</script>";
     echo "<script>window.location.href = 'login.php';</script>";
@@ -36,6 +36,11 @@ if ($response[0] == 0) {
 // close socket
 socket_close($socket);
 ?>
+
+<script type="text/javascript">
+    const start_time = <?php echo $_SESSION["start_time"]; ?> + 60;
+    var current_time = <?php echo time(); ?>;
+</script>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -47,6 +52,8 @@ socket_close($socket);
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/question.css">
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/sygmaa/CircularCountDownJs@master/circular-countdown.min.js"></script>
     <title>Question</title>
 </head>
 
@@ -54,11 +61,15 @@ socket_close($socket);
     <header>
         <?php include('navbar.php') ?>
     </header>
+    
+    <div class="container d-flex flex-row-reverse">
+        <div class="timer"></div>
+    </div>
 
     <div class="container">
         <div class="card border-0 shadow rounded-3 my-5" style="align-content: center;">
             <div class=" card-body">
-                <form action="answer.php" method="post">
+                <form id="questionForm" action="answer.php" method="post">
                     <div class="py-2 h5 p-3"><b><?php echo $response[1] ?></b></div>
                     <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
                         <label class="options">
@@ -81,9 +92,10 @@ socket_close($socket);
             </div>
         </div>
     </div>
-
+    
+    <script src="./assets/js/countdown.js"></script>
     <script type="text/javascript">
-        setInterval("myFunction()", 1000);
+        // setInterval("myFunction()", 1000);
 
         function myFunction() {
             if (!window.document.hasFocus()) {
@@ -91,7 +103,6 @@ socket_close($socket);
             }
         }
     </script>
-
 
 </body>
 

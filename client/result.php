@@ -16,12 +16,12 @@ $msg = RESULT . "|" . $token . "|" . $user_id;
 $ret = socket_write($socket, $msg, strlen($msg));
 if (!$ret) die("client write fail:" . socket_strerror(socket_last_error()) . "\n");
 
-$response = socket_read($socket, 1024);
+$response = socket_read($socket, STRING_LENGTH);
 if (!$response) die("client read fail:" . socket_strerror(socket_last_error()) . "\n");
 
 $response = explode("|", $response);
 
-if ($response[0] == 0) {
+if ($response[0] == ERROR) {
     unset($_SESSION['token']);
     unset($_SESSION['user-id']);
     echo "<script>alert('" . $response[1] . "');</script>";

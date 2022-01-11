@@ -17,12 +17,12 @@ $msg = CONTINUER . "|" . $token . "|" . $user_id;
 $ret = socket_write($socket, $msg, strlen($msg));
 if (!$ret) die("client write fail:" . socket_strerror(socket_last_error()) . "\n");
 
-$response = socket_read($socket, 1024);
+$response = socket_read($socket, STRING_LENGTH);
 if (!$response) die("client read fail:" . socket_strerror(socket_last_error()) . "\n");
 
 $response = explode("|", $response);
 
-if ($response[0] == 0) {
+if ($response[0] == ERROR) {
     unset($_SESSION['token']);
     unset($_SESSION['user-id']);
     // not auth
@@ -30,8 +30,8 @@ if ($response[0] == 0) {
     echo "<script>window.location.href = 'login.php';</script>";
 }
 
-if ((0 <= $response[1] && $response[1] <= 11)
-    && (0 <= $response[2] && $response[2] <= 9)
+if ((0 <= $response[1] && $response[1] <= SPECIAL_QUESTION)
+    && (0 <= $response[2] && $response[2] <= MAX_QUESTION)
 ) {
     $_SESSION['no_question'] = intval($response[1]);
     $_SESSION['no_correct'] = intval($response[2]);
@@ -40,6 +40,8 @@ if ((0 <= $response[1] && $response[1] <= 11)
     echo "<script>window.location.href = 'login.php';</script>";
 }
 
+// set start time
+$_SESSION['start_time'] = time();
 ?>
 
 <!DOCTYPE html>

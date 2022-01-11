@@ -6,7 +6,7 @@ if (!$_SESSION['token'] || !$_SESSION['user-id']) {
     echo "<script>window.location.href = 'login.php';</script>";
 }
 
-if ($_SESSION['no_question'] != 10) {
+if ($_SESSION['no_question'] != MINI_GAME) {
     echo "<script>alert('Wrong user data!');</script>";
     echo "<script>window.location.href = 'login.php';</script>";
 }

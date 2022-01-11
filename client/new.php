@@ -17,7 +17,7 @@ $ret = socket_write($socket, $msg, strlen($msg));
 if (!$ret) die("client write fail:" . socket_strerror(socket_last_error()) . "\n");
 
 // receive response from server
-$response = socket_read($socket, 1024);
+$response = socket_read($socket, STRING_LENGTH);
 if (!$response) die("client read fail:" . socket_strerror(socket_last_error()) . "\n");
 
 // close socket
@@ -25,7 +25,7 @@ socket_close($socket);
 
 $response = explode("|", $response);
 
-if ($response[0] == '0') {
+if ($response[0] == ERROR) {
     unset($_SESSION['token']);
     unset($_SESSION['user-id']);
     echo "<script>alert('" . $response[1] . "');</script>";
@@ -34,6 +34,8 @@ if ($response[0] == '0') {
 
 $_SESSION['no_question'] = 1;
 $_SESSION['no_correct'] = 0;
+// set start time
+$_SESSION['start_time'] = time();
 
 ?>
 

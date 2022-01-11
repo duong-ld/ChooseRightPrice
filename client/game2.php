@@ -6,7 +6,7 @@ if (!$_SESSION['token'] || !$_SESSION['user-id']) {
     echo "<script>window.location.href = 'login.php';</script>";
 }
 
-if ($_SESSION['no_question'] < 10) {
+if ($_SESSION['no_question'] != MINI_GAME) {
     echo "<script>alert('Wrong user data!');</script>";
     echo "<script>window.location.href = 'login.php';</script>";
 }
@@ -23,19 +23,19 @@ $msg = QUESTION . "|" . $token . "|" . $user_id . "|" . $no_question;
 $ret = socket_write($socket, $msg, strlen($msg));
 if (!$ret) die("client write fail:" . socket_strerror(socket_last_error()) . "\n");
 
-$response = socket_read($socket, 1024);
+$response = socket_read($socket, STRING_LENGTH);
 if (!$response) die("client read fail:" . socket_strerror(socket_last_error()) . "\n");
 
 $response = explode("|", $response);
 
-if ($response[0] == 0) {
+if ($response[0] == ERROR) {
     unset($_SESSION['token']);
     unset($_SESSION['user-id']);
     echo "<script>alert('" . $response[1] . "');</script>";
     echo "<script>window.location.href = 'login.php';</script>";
 }
 
-if ($response[1] >= 0 && $response[1] <= 9) {
+if ($response[1] >= 0 && $response[1] <= MAX_QUESTION) {
     $_SESSION['no_correct'] = $response[1];
 } else {
     echo "<script>alert('Wrong user data!');</script>";

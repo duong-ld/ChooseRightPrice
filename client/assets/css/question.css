@@ -95,9 +95,4 @@ body {
     background-color: #21bf73
 }
 
-@media(max-width:576px) {
-    .question {
-        width: 100%;
-        word-spacing: 2px
-    }
-}
+/* countdown time */

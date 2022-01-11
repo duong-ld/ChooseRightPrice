@@ -42,7 +42,7 @@ if (isset($_POST['signup'])) {
         if (!$ret) die("client write fail:" . socket_strerror(socket_last_error()) . "\n");
 
         // receive response from server
-        $response = socket_read($socket, 1024);
+        $response = socket_read($socket, STRING_LENGTH);
         if (!$response) die("client read fail:" . socket_strerror(socket_last_error()) . "\n");
 
         // split response from server

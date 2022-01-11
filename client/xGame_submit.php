@@ -28,4 +28,4 @@ if (isset($_POST['answer'])) {
     }
 }
 
-?>
+?> 

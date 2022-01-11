@@ -22,13 +22,13 @@ if (isset($_POST['answer'])) {
     if (!$ret) die("client write fail:" . socket_strerror(socket_last_error()) . "\n");
 
     // receive response from server
-    $response = socket_read($socket, 1024);
+    $response = socket_read($socket, STRING_LENGTH);
     if (!$response) die("client read fail:" . socket_strerror(socket_last_error()) . "\n");
 
     // split response from server
     $response = explode("|", $response);
 
-    if ($response[0] == 0) {
+    if ($response[0] == ERROR) {
         unset($_SESSION['token']);
         unset($_SESSION['user-id']);
         echo "<script>alert('" . strval($response[1]) . "');</script>";
@@ -38,6 +38,9 @@ if (isset($_POST['answer'])) {
     echo "<script>alert('You are not answer!');</script>";
     echo "<script>window.location.href = 'question.php';</script>";
 }
+
+// set start time
+$_SESSION['start_time'] = time();
 ?>
 <!DOCTYPE html>
 <html lang="en">

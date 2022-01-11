@@ -1,4 +1,5 @@
 <?php
+include('constant.php');
 session_start();
 
 if (!$_SESSION['token'] || !$_SESSION['user-id']) {
@@ -6,7 +7,7 @@ if (!$_SESSION['token'] || !$_SESSION['user-id']) {
     echo "<script>window.location.href = 'login.php';</script>";
 }
 
-if ($_SESSION['no_question'] < 11) {
+if ($_SESSION['no_question'] != SPECIAL_QUESTION) {
     echo "<script>alert('Wrong user data!');</script>";
     echo "<script>window.location.href = 'login.php';</script>";
 }
