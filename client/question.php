@@ -95,7 +95,7 @@ socket_close($socket);
     
     <script src="./assets/js/countdown.js"></script>
     <script type="text/javascript">
-        // setInterval("myFunction()", 1000);
+        setInterval("myFunction()", 1000);
 
         function myFunction() {
             if (!window.document.hasFocus()) {
