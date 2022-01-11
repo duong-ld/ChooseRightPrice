@@ -1,5 +1,6 @@
 <?php
     const 
+          ANSWER_TIME = 40,
           STRING_LENGTH = 1024,
           ERROR = 0,
           LOGIN = 1,

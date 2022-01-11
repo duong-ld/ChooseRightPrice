@@ -41,7 +41,9 @@ if ((0 <= $response[1] && $response[1] <= SPECIAL_QUESTION)
 }
 
 // set start time
-$_SESSION['start_time'] = time();
+if (!isset($_SESSION['start_time']) || (($_SESSION['start_time'] + ANSWER_TIME - time()) <= 0)) {
+    $_SESSION['start_time'] = time();
+}
 ?>
 
 <!DOCTYPE html>

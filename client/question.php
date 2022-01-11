@@ -38,7 +38,7 @@ socket_close($socket);
 ?>
 
 <script type="text/javascript">
-    const start_time = <?php echo $_SESSION["start_time"]; ?> + 60;
+    const end_time = <?php echo $_SESSION["start_time"] + ANSWER_TIME; ?>;
     var current_time = <?php echo time(); ?>;
 </script>
 
@@ -61,7 +61,7 @@ socket_close($socket);
     <header>
         <?php include('navbar.php') ?>
     </header>
-    
+
     <div class="container d-flex flex-row-reverse">
         <div class="timer"></div>
     </div>
@@ -69,7 +69,7 @@ socket_close($socket);
     <div class="container">
         <div class="card border-0 shadow rounded-3 my-5" style="align-content: center;">
             <div class=" card-body">
-                <form id="questionForm" action="answer.php" method="post">
+                <form id="question" action="answer.php" method="post">
                     <div class="py-2 h5 p-3"><b><?php echo $response[1] ?></b></div>
                     <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
                         <label class="options">
@@ -92,14 +92,20 @@ socket_close($socket);
             </div>
         </div>
     </div>
-    
+
     <script src="./assets/js/countdown.js"></script>
     <script type="text/javascript">
-        setInterval("myFunction()", 1000);
+        var myInterval = setInterval("reloadFunc()", 4000);
 
-        function myFunction() {
+        function reloadFunc() {
             if (!window.document.hasFocus()) {
-                window.location.reload();
+                clearInterval(myInterval);
+                if (confirm('Looks like you just left the game!! Your question could have been changed. Please reload to not affect the results') == true) {
+                    window.location.reload();
+                }
+                else {
+                    myInterval = setInterval("reloadFunc()", 4000);
+                }
             }
         }
     </script>
