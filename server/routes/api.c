@@ -146,7 +146,6 @@ void handle_message(char* message, int socket) {
       return;
     }
     if (check == TOKEN_NOT_EXIST) {
-      printf("Token not exist\n");
       send_error(socket, "User is not logged in.");
       return;
     }
@@ -180,7 +179,6 @@ void handle_message(char* message, int socket) {
         }
 
         account->data->no_question = no_question;
-        printf("no_question: %d\n", no_question);
         generateQuestion(socket, account);
         break;
       case ANSWER:
@@ -240,6 +238,4 @@ void handle_message(char* message, int socket) {
         break;
     }
   }
-
-  printf("Closed\n");
 }

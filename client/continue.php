@@ -81,7 +81,6 @@ if (!isset($_SESSION['start_time']) || (($_SESSION['start_time'] + ANSWER_TIME -
         </div>
     <?php } else if ($_SESSION['no_question'] == 10) { ?>
         <script>
-            alert(<?php echo $_SESSION['no_question'] ?>);
             window.location.href = "game2.php";
         </script>
     <?php } else { ?>

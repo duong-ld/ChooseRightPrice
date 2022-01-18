@@ -40,7 +40,6 @@ void generateQuestion(int socket, tree account) {
     } else if (no_question == MINI_GAME) {
       minigame(socket, tmp);
     } else if (no_question == SPECIAL_QUESTION) {
-      printf("special question\n");
       special_question(socket, tmp);
     } else {
       sprintf(server_message, "%d|Wrong user data", ERROR);
@@ -190,14 +189,11 @@ void checkAnswer(int socket, tree account, double answer) {
     // if not pass minigame then out game
   } else if (tmp->data->no_question == MINI_GAME) {
     if (answer == 1) {
-      printf("pass minigame\n");
       tmp->data->no_question = tmp->data->no_question + 1;
     } else {
-      printf("out game\n");
       tmp->data->status = NONE;
     }
   } else if (tmp->data->no_question == SPECIAL_QUESTION) {
-    printf("Answer of final question: %.2f - %.2f\n", answer, correct_answer);
     double diff = correct_answer - answer;
     double diff_percent = diff / correct_answer;
     if (diff_percent < 0.05 && diff_percent > -0.05) {

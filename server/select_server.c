@@ -111,7 +111,6 @@ int main() {
         continue;
       if (FD_ISSET(sockfd, &readfds)) {
         ret = recv(sockfd, buff, BUFF_SIZE, 0);
-        printf("%s: %s\n", inet_ntoa(cliaddr.sin_addr), buff);
         if (ret <= 0) {
           FD_CLR(sockfd, &allset);
           close(sockfd);
@@ -119,6 +118,7 @@ int main() {
         } else {
           buff[ret] = '\0';
           handle_message(buff, sockfd);
+          printf("%s: Closing\n", inet_ntoa(cliaddr.sin_addr));
           if (ret <= 0) {
             FD_CLR(sockfd, &allset);
             close(sockfd);
