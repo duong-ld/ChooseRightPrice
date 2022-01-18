@@ -104,17 +104,9 @@ require('socket_config.php');
          </script>';
     ?>
 
-    <?php
-    // send result to server
-    // send pass minigame message to server
-    // $token = intval($_SESSION['token']);
-    // $user_id = intval($_SESSION['user-id']);
-    // $no_question = intval($_SESSION['no_question']);
-    // $answer = 1;
-    // $message = ANSWER . "|" . $token . "|" . $user_id . "|" . $no_question . "|" . $answer;
-    // socket_write($socket, $message, strlen($message));
-    // $_SESSION['no_question'] = intval($_SESSION['no_question']) + 1;
-    ?>
+    <footer>
+        <?php include('footer.php'); ?>
+    </footer>
 </body>
 
 </html>

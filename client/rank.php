@@ -24,7 +24,8 @@ $response = explode("|", $response);
 
 if ($response[0] == ERROR) {
     unset($_SESSION['token']);
-    echo "<script>alert('You are not logged in!');</script>";
+    unset($_SESSION['user-id']);
+    echo "<script>alert('" . $response[1] . "');</script>";
     echo "<script>window.location.href = 'login.php';</script>";
 }
 
@@ -113,6 +114,10 @@ if ($response[0] == ERROR) {
             </table>
         </div>
     </div>
+
+    <footer>
+        <?php include('footer.php'); ?>
+    </footer>
 
 
 

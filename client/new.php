@@ -69,6 +69,9 @@ $_SESSION['start_time'] = time();
         </div>
     </div>
 
+    <footer>
+        <?php include('footer.php'); ?>
+    </footer>
 
 </body>
 

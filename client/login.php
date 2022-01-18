@@ -21,7 +21,7 @@ if (isset($_POST['login'])) {
     }
 
     if ($username && $password && $validate) {
-        
+
         require('socket_config.php');
 
         // send username, password to server
@@ -43,7 +43,7 @@ if (isset($_POST['login'])) {
             echo "<script>alert('Login Success');</script>";
             echo "<script>window.location.href='home.php';</script>";
         } else {
-            echo "<script>alert('" . strval($response[2]) . "');</script>";
+            echo "<script>alert('" . $response[2] . "');</script>";
             echo "<script>window.location.href = 'login.php';</script>";
         }
 
@@ -98,6 +98,10 @@ if (isset($_POST['login'])) {
             </div>
         </div>
     </div>
+
+    <footer>
+        <?php include('footer.php'); ?>
+    </footer>
 </body>
 
 </html>

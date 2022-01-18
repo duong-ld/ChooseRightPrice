@@ -57,6 +57,10 @@ if (isset($_SESSION['token'])) {
         </a>
     </div>
 
+    <footer>
+        <?php include('footer.php'); ?>
+    </footer>
+
 </body>
 
 </html>

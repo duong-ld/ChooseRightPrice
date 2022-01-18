@@ -69,6 +69,9 @@ if ($response[0] == ERROR) {
         </div>
     </div>
 
+    <footer>
+        <?php include('footer.php'); ?>
+    </footer>
 </body>
 
 </html>

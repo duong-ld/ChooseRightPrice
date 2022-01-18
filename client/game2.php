@@ -75,6 +75,9 @@ if ($response[1] >= 0 && $response[1] <= MAX_QUESTION) {
         </div>
     </div>
 
+    <footer>
+        <?php include('footer.php'); ?>
+    </footer>
 
 </body>
 

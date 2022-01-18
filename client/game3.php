@@ -44,6 +44,9 @@ if ($_SESSION['no_question'] != SPECIAL_QUESTION) {
         </div>
     </div>
 
+    <footer>
+        <?php include('footer.php'); ?>
+    </footer>
 
 </body>
 

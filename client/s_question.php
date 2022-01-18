@@ -31,9 +31,10 @@ if (!$response) die("client read fail:" . socket_strerror(socket_last_error()) .
 // split response from server
 $response = explode("|", $response);
 
-if ($response[0] == 0) {
+if ($response[0] == ERROR) {
     unset($_SESSION['token']);
-    echo "<script>alert('You are not logged in!');</script>";
+    unset($_SESSION['user-id']);
+    echo "<script>alert('" . $response[1] . "');</script>";
     echo "<script>window.location.href = 'login.php';</script>";
 }
 
@@ -79,7 +80,9 @@ socket_close($socket);
         </div>
     </div>
 
-
+    <footer>
+        <?php include('footer.php'); ?>
+    </footer>
 </body>
 
 </html>

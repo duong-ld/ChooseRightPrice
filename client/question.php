@@ -29,7 +29,8 @@ $response = explode("|", $response);
 
 if ($response[0] == ERROR) {
     unset($_SESSION['token']);
-    echo "<script>alert('You are not logged in!');</script>";
+    unset($_SESSION['user-id']);
+    echo "<script>alert('" . $response[1] . "');</script>";
     echo "<script>window.location.href = 'login.php';</script>";
 }
 
@@ -62,12 +63,13 @@ socket_close($socket);
         <?php include('navbar.php') ?>
     </header>
 
-    <div class="container d-flex flex-row-reverse">
-        <div class="timer"></div>
-    </div>
-
     <div class="container">
         <div class="card border-0 shadow rounded-3 my-5" style="align-content: center;">
+            <div class="card-title pr-5">
+                <div class="container d-flex flex-row-reverse pr-5">
+                    <div class="timer"></div>
+                </div>
+            </div>
             <div class=" card-body">
                 <form id="question" action="answer.php" method="post">
                     <div class="py-2 h5 p-3"><b><?php echo $response[1] ?></b></div>
@@ -102,13 +104,16 @@ socket_close($socket);
                 clearInterval(myInterval);
                 if (confirm('Looks like you just left the game!! Your question could have been changed. Please reload to not affect the results') == true) {
                     window.location.reload();
-                }
-                else {
+                } else {
                     myInterval = setInterval("reloadFunc()", 4000);
                 }
             }
         }
     </script>
+
+    <footer>
+        <?php include('footer.php'); ?>
+    </footer>
 
 </body>
 

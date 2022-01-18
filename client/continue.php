@@ -89,6 +89,10 @@ if (!isset($_SESSION['start_time']) || (($_SESSION['start_time'] + ANSWER_TIME -
         </script>
     <?php } ?>
 
+    <footer>
+        <?php include('footer.php'); ?>
+    </footer>
+
 </body>
 
 </html>
