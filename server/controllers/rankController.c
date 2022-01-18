@@ -56,7 +56,7 @@ void rank(int socket, tree account) {
     return;
   }
 
-  sprintf(server_message, "%d|%s|%s|%s|%s|%s", RANK, row[0], row[1], row[2],
+  sprintf(server_message, "%d|%s|%s|%s|%s|%s|", RANK, row[0], row[1], row[2],
           row[3], row[4]);
   send(socket, server_message, strlen(server_message), 0);
 }

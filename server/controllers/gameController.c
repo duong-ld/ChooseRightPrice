@@ -23,7 +23,7 @@ void resetGame(int socket, tree account) {
   tmp->data->money = 0;
   tmp->data->status = IN_GAME;
 
-  sprintf(server_message, "%d|Success", RESET);
+  sprintf(server_message, "%d|S|", RESET);
 
   send(socket, server_message, strlen(server_message), 0);
 }
@@ -41,7 +41,7 @@ void continueGame(int socket, tree account) {
 
   tmp->data->status = IN_GAME;
 
-  sprintf(server_message, "%d|%d|%d", CONTINUER, tmp->data->no_question,
+  sprintf(server_message, "%d|%d|%d|", CONTINUER, tmp->data->no_question,
           tmp->data->no_correct);
 
   send(socket, server_message, strlen(server_message), 0);

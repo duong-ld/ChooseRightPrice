@@ -11,6 +11,6 @@
 
 void send_error(int sockfd, char* msg) {
   char server_message[BUFF_SIZE];
-  sprintf(server_message, "%d|%s", ERROR, msg);
+  sprintf(server_message, "%d|%s|", ERROR, msg);
   send(sockfd, server_message, strlen(server_message), 0);
 }
