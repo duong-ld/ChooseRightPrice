@@ -30,8 +30,7 @@ void generateQuestion(int socket, tree account) {
   if (tmp->data->answer != 0 && strlen(tmp->data->question) > 0) {
     send(socket, tmp->data->question, strlen(tmp->data->question), 0);
   } else if (tmp->data->answer != 0 && strlen(tmp->data->question) == 0) {
-    sprintf(server_message, "%d|Wrong user data", ERROR);
-    send(socket, server_message, strlen(server_message), 0);
+    send_error(socket, "Question is empty");
     // reset user data
     tmp->data->answer = 0;
   } else {
@@ -42,8 +41,7 @@ void generateQuestion(int socket, tree account) {
     } else if (no_question == SPECIAL_QUESTION) {
       special_question(socket, tmp);
     } else {
-      sprintf(server_message, "%d|Wrong user data", ERROR);
-      send(socket, server_message, strlen(server_message), 0);
+      send_error(socket, "Wrong user data");
       // reset user data
       tmp->data->answer = 0;
     }
@@ -58,7 +56,7 @@ void minigame(int socket, tree account) {
     send_error(socket, "Wrong user data");
   }
 
-  sprintf(server_message, "%d|%d", QUESTION, no_correct);
+  sprintf(server_message, "%d|%d|", QUESTION, no_correct);
   send(socket, server_message, strlen(server_message), 0);
 }
 
@@ -101,7 +99,7 @@ void question(int no_question, int socket, tree account) {
   account->data->answer = totalPrice;
   // convert to question
   sprintf(server_message,
-          "%d|What is the price of %d products: %s's %s|%.2f|%.2f", QUESTION,
+          "%d|What is the price of %d products: %s's %s|%.2f|%.2f|", QUESTION,
           quantity, row[2], row[1], totalPrice, totalPrice * 1.05);
 
   sprintf(account->data->question, "%s", server_message);
@@ -177,10 +175,10 @@ void checkAnswer(int socket, tree account, double answer) {
   if (tmp->data->no_question <= MAX_QUESTION) {
     if (correct_answer - answer < 0.001 && correct_answer - answer > -0.001) {
       tmp->data->no_correct = tmp->data->no_correct + 1;
-      sprintf(server_message, "%d|S", ANSWER);
+      sprintf(server_message, "%d|S|", ANSWER);
       send(socket, server_message, strlen(server_message), 0);
     } else {
-      sprintf(server_message, "%d|F", ANSWER);
+      sprintf(server_message, "%d|F|", ANSWER);
       send(socket, server_message, strlen(server_message), 0);
     }
     if (tmp->data->no_question == MAX_QUESTION && tmp->data->no_correct < 5) {
@@ -199,10 +197,10 @@ void checkAnswer(int socket, tree account, double answer) {
     if (diff_percent < 0.05 && diff_percent > -0.05) {
       tmp->data->money = answer;
       addMoney(account->data->user_id, answer);
-      sprintf(server_message, "%d|S", ANSWER);
+      sprintf(server_message, "%d|S|", ANSWER);
       send(socket, server_message, strlen(server_message), 0);
     } else {
-      sprintf(server_message, "%d|F", ANSWER);
+      sprintf(server_message, "%d|F|", ANSWER);
       send(socket, server_message, strlen(server_message), 0);
     }
     tmp->data->status = NONE;

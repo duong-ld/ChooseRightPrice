@@ -29,7 +29,7 @@ void registerUser(int socket, char* name, char* username, char* password) {
   int user_id;
 
   if (insertUser(name, username, password) == FALSE) {
-    sprintf(server_message, "%d|F|User already exists", REGISTER);
+    sprintf(server_message, "%d|F|User already exists|", REGISTER);
     send(socket, server_message, strlen(server_message), 0);
   }
 
@@ -49,7 +49,7 @@ void registerUser(int socket, char* name, char* username, char* password) {
   // create token
   token = set_token_id(tokens, user_id);
   if (token == -1) {
-    sprintf(server_message, "%d|F|%s\n", REGISTER,
+    sprintf(server_message, "%d|F|%s|", REGISTER,
             "Register successfully but cannot create token");
     send(socket, server_message, strlen(server_message), 0);
     return;
@@ -57,7 +57,7 @@ void registerUser(int socket, char* name, char* username, char* password) {
   // insert user_id to tree
   root = insertBST(root, user_id);
 
-  sprintf(server_message, "%d|S|%d|%d\n", REGISTER, token, user_id);
+  sprintf(server_message, "%d|S|%d|%d|", REGISTER, token, user_id);
   send(socket, server_message, sizeof(server_message), 0);
   return;
 }
@@ -69,7 +69,7 @@ void loginUser(int socket, char* username, char* password) {
 
   user_id = authUser(username, password);
   if (user_id == -1) {
-    sprintf(server_message, "%d|F|%s\n", LOGIN, "Wrong username or password");
+    sprintf(server_message, "%d|F|%s|", LOGIN, "Wrong username or password");
     send(socket, server_message, strlen(server_message), 0);
     return;
   }
@@ -77,7 +77,7 @@ void loginUser(int socket, char* username, char* password) {
   // create token
   token = set_token_id(tokens, user_id);
   if (token == -1) {
-    sprintf(server_message, "%d|F|%s\n", LOGIN,
+    sprintf(server_message, "%d|F|%s|", LOGIN,
             "Login successfully but cannot create token");
     send(socket, server_message, strlen(server_message), 0);
     return;
@@ -85,7 +85,7 @@ void loginUser(int socket, char* username, char* password) {
   // insert user_id to tree
   root = insertBST(root, user_id);
 
-  sprintf(server_message, "%d|S|%d|%d\n", LOGIN, token, user_id);
+  sprintf(server_message, "%d|S|%d|%d|", LOGIN, token, user_id);
   send(socket, server_message, sizeof(server_message), 0);
   return;
 }
@@ -95,7 +95,7 @@ void logoutUser(int socket, int token_id) {
   // remove token
   remove_token(tokens, token_id);
 
-  sprintf(server_message, "%d|S|%d\n", LOGOUT, token_id);
+  sprintf(server_message, "%d|S|%d|", LOGOUT, token_id);
   send(socket, server_message, sizeof(server_message), 0);
   return;
 }
